@@ -1,0 +1,4 @@
+{
+  "outputDirectory": "build/client",
+  "framework": "remix"
+}
