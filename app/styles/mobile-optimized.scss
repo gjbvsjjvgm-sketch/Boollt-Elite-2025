@@ -1,0 +1,65 @@
+/* تحسينات التصميم للهواتف المحمولة */
+@media (max-width: 768px) {
+  :root {
+    --header-height: 48px;
+    --chat-max-width: 100%;
+    --chat-min-width: 100%;
+    --workbench-width: 0px; /* إخفاء لوحة العمل افتراضياً في الجوال */
+  }
+
+  .chat-container {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .message-content {
+    max-width: 90%;
+    padding: 12px;
+  }
+
+  /* تصغير الأزرار والعناصر */
+  button {
+    padding: 6px 10px !important;
+    font-size: 12px !important;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 280px;
+    z-index: 100;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    background: var(--bolt-elements-bg-depth-1);
+    box-shadow: 10px 0 30px rgba(0,0,0,0.1);
+    
+    &.open {
+      transform: translateX(0);
+    }
+  }
+
+  /* إخفاء العناصر غير الضرورية في الجوال لتوفير المساحة */
+  .hide-mobile {
+    display: none !important;
+  }
+
+  /* تحسين شريط الأدوات في صندوق الدردشة */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* ثيم عصري مستوحى من Claude */
+[data-theme='dark'] {
+  --bolt-elements-bg-depth-1: #0a0a0a;
+  --bolt-elements-bg-depth-2: #141414;
+  --bolt-elements-borderColor: rgba(255, 255, 255, 0.08);
+  --bolt-elements-button-primary-background: #7c4dff;
+  --accent-color: #9d4edd;
+}
