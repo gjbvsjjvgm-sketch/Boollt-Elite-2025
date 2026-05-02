@@ -46,7 +46,7 @@ export default defineConfig((config) => {
       },
       config.command === 'serve' && config.mode !== 'test' && remixCloudflareDevProxy(),
       remixVitePlugin({
-        presets: [vercelPreset()],
+        presets: process.env.VERCEL ? [vercelPreset()] : [],
         future: {
           v3_fetcherPersist: true,
           v3_relativeSplatPath: true,
