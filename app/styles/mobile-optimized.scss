@@ -1,96 +1,50 @@
-/* Boollt-Elite-2025: Advanced Mobile & Professional Theme 2026 */
+/* Boollt-Elite-2025: Elite Mobile Refactor */
 :root {
-  /* Functional Minimalism Design Tokens */
-  --header-height: 56px;
-  --sidebar-width: 280px;
-  --accent-primary: #7c4dff;
-  --accent-secondary: #9d4edd;
-  --bg-depth-1: #0a0a0b;
-  --bg-depth-2: #161617;
-  --text-primary: #f5f5f7;
-  --text-secondary: #a1a1a6;
-  --border-subtle: rgba(255, 255, 255, 0.08);
+  --header-height: 52px;
+  --sidebar-width: 260px;
+  --chat-max-width: 1200px;
+  --center-panel-padding: 12px;
 }
 
 @media (max-width: 768px) {
-  :root {
-    --header-height: 48px;
-    --chat-max-width: 100%;
-    --chat-min-width: 100%;
-    --workbench-width: 0px;
+  .BaseChat {
+    padding: var(--center-panel-padding);
   }
 
-  /* One-Handed Command Bar Focus */
-  .chat-container {
-    padding: 8px;
-    font-size: 15px;
-    background: var(--bg-depth-1);
+  /* تصغير عناصر الـ Center Panel */
+  #intro h1 {
+    font-size: 2.2rem !important;
+    letter-spacing: -0.05em;
   }
 
-  /* Floating Action Review & Button Scaling */
-  button, 
-  .bolt-button {
-    height: 40px !important;
-    padding: 0 12px !important;
-    font-size: 13px !important;
-    border-radius: 8px !important;
-    transition: transform 0.1s ease;
-    
-    &:active {
-      transform: scale(0.96);
-    }
+  .ChatBox {
+    padding: 8px !important;
+    margin-bottom: 4px !important;
   }
 
-  /* Lens Sidebar Navigation */
-  .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: var(--sidebar-width);
-    z-index: 1000;
-    transform: translateX(-100%);
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    background: var(--bg-depth-2);
-    backdrop-filter: blur(20px);
-    border-right: 1px solid var(--border-subtle);
-    
-    &.open {
-      transform: translateX(0);
-    }
+  textarea {
+    font-size: 14px !important;
+    padding: 10px !important;
   }
 
-  /* Visual Hierarchy - Reduced Palette for Focus */
-  .message-content {
-    max-width: 92%;
-    padding: 14px;
-    border-radius: 12px;
-    background: var(--bg-depth-2);
-    border: 1px solid var(--border-subtle);
+  /* تحسين الأزرار في الجوال */
+  .IconButton {
+    width: 36px !important;
+    height: 36px !important;
+    padding: 4px !important;
   }
 
-  /* Hide decorative elements on mobile */
-  .hide-mobile,
-  .decorative-ray {
+  /* إخفاء العناصر غير الضرورية لزيادة مساحة العمل */
+  .hide-on-mobile {
     display: none !important;
-  }
-
-  /* Optimized Scrollbars for Touch */
-  .no-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-    &::-webkit-scrollbar {
-      display: none;
-    }
   }
 }
 
-/* Elite Pro Theme Overrides */
+/* Elite Pro Theme Colors */
 [data-theme='dark'] {
-  --bolt-elements-bg-depth-1: var(--bg-depth-1);
-  --bolt-elements-bg-depth-2: var(--bg-depth-2);
-  --bolt-elements-borderColor: var(--border-subtle);
-  --bolt-elements-button-primary-background: var(--accent-primary);
-  --bolt-elements-button-primary-backgroundHover: var(--accent-secondary);
+  --bolt-elements-bg-depth-1: #09090b;
+  --bolt-elements-bg-depth-2: #121214;
+  --bolt-elements-borderColor: rgba(255, 255, 255, 0.06);
+  --accent-primary: #8b5cf6;
 }
 
