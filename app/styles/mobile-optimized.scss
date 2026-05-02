@@ -1,65 +1,96 @@
-/* تحسينات التصميم للهواتف المحمولة */
+/* Boollt-Elite-2025: Advanced Mobile & Professional Theme 2026 */
+:root {
+  /* Functional Minimalism Design Tokens */
+  --header-height: 56px;
+  --sidebar-width: 280px;
+  --accent-primary: #7c4dff;
+  --accent-secondary: #9d4edd;
+  --bg-depth-1: #0a0a0b;
+  --bg-depth-2: #161617;
+  --text-primary: #f5f5f7;
+  --text-secondary: #a1a1a6;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+}
+
 @media (max-width: 768px) {
   :root {
     --header-height: 48px;
     --chat-max-width: 100%;
     --chat-min-width: 100%;
-    --workbench-width: 0px; /* إخفاء لوحة العمل افتراضياً في الجوال */
+    --workbench-width: 0px;
   }
 
+  /* One-Handed Command Bar Focus */
   .chat-container {
-    padding: 10px;
-    font-size: 14px;
+    padding: 8px;
+    font-size: 15px;
+    background: var(--bg-depth-1);
   }
 
-  .message-content {
-    max-width: 90%;
-    padding: 12px;
+  /* Floating Action Review & Button Scaling */
+  button, 
+  .bolt-button {
+    height: 40px !important;
+    padding: 0 12px !important;
+    font-size: 13px !important;
+    border-radius: 8px !important;
+    transition: transform 0.1s ease;
+    
+    &:active {
+      transform: scale(0.96);
+    }
   }
 
-  /* تصغير الأزرار والعناصر */
-  button {
-    padding: 6px 10px !important;
-    font-size: 12px !important;
-  }
-
+  /* Lens Sidebar Navigation */
   .sidebar {
     position: fixed;
     top: 0;
     left: 0;
     height: 100%;
-    width: 280px;
-    z-index: 100;
+    width: var(--sidebar-width);
+    z-index: 1000;
     transform: translateX(-100%);
-    transition: transform 0.3s ease;
-    background: var(--bolt-elements-bg-depth-1);
-    box-shadow: 10px 0 30px rgba(0,0,0,0.1);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: var(--bg-depth-2);
+    backdrop-filter: blur(20px);
+    border-right: 1px solid var(--border-subtle);
     
     &.open {
       transform: translateX(0);
     }
   }
 
-  /* إخفاء العناصر غير الضرورية في الجوال لتوفير المساحة */
-  .hide-mobile {
+  /* Visual Hierarchy - Reduced Palette for Focus */
+  .message-content {
+    max-width: 92%;
+    padding: 14px;
+    border-radius: 12px;
+    background: var(--bg-depth-2);
+    border: 1px solid var(--border-subtle);
+  }
+
+  /* Hide decorative elements on mobile */
+  .hide-mobile,
+  .decorative-ray {
     display: none !important;
   }
 
-  /* تحسين شريط الأدوات في صندوق الدردشة */
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
+  /* Optimized Scrollbars for Touch */
   .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 }
 
-/* ثيم عصري مستوحى من Claude */
+/* Elite Pro Theme Overrides */
 [data-theme='dark'] {
-  --bolt-elements-bg-depth-1: #0a0a0a;
-  --bolt-elements-bg-depth-2: #141414;
-  --bolt-elements-borderColor: rgba(255, 255, 255, 0.08);
-  --bolt-elements-button-primary-background: #7c4dff;
-  --accent-color: #9d4edd;
+  --bolt-elements-bg-depth-1: var(--bg-depth-1);
+  --bolt-elements-bg-depth-2: var(--bg-depth-2);
+  --bolt-elements-borderColor: var(--border-subtle);
+  --bolt-elements-button-primary-background: var(--accent-primary);
+  --bolt-elements-button-primary-backgroundHover: var(--accent-secondary);
 }
+
