@@ -48,27 +48,6 @@
   --chat-max-width: 1200px; /* Expanded for Pro feel */
   --chat-min-width: 100%;
   --workbench-width: 0px; 
-}
-
-@media (min-width: 768px) {
-  :root {
-    --chat-max-width: 33rem;
-    --chat-min-width: 533px;
-    --workbench-width: min(calc(100% - var(--chat-min-width)), 2536px);
-  }
-}
-
-/* Global Scale Adjustment for Mobile */
-@media (max-width: 768px) {
-  :root {
-    --header-height: 48px;
-    font-size: 14px; /* Global shrink */
-  }
-  
-  * {
-    letter-spacing: -0.01em;
-  }
-}
 
   /* Toasts */
   --toastify-color-progress-success: var(--bolt-elements-icon-success);
@@ -95,4 +74,24 @@
   --bolt-elements-terminal-color-brightMagenta: var(--bolt-terminal-brightMagenta);
   --bolt-elements-terminal-color-brightCyan: var(--bolt-terminal-brightCyan);
   --bolt-elements-terminal-color-brightWhite: var(--bolt-terminal-brightWhite);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --chat-max-width: 33rem;
+    --chat-min-width: 533px;
+    --workbench-width: min(calc(100% - var(--chat-min-width)), 2536px);
+  }
+}
+
+/* Global Scale Adjustment for Mobile */
+@media (max-width: 768px) {
+  :root {
+    --header-height: 48px;
+    font-size: 14px; /* Global shrink */
+  }
+  
+  * {
+    letter-spacing: -0.01em;
+  }
 }
