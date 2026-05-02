@@ -1,0 +1,82 @@
+/* 
+ * Boollt-Elite-2025: ANDROID ELITE MOBILE OPTIMIZATION 
+ * Optimized for standard Android viewports (360px - 412px width)
+ */
+
+:root {
+  --elite-accent: #7c4dff;
+  --bg-black: #09090b;
+}
+
+/* Global Android Fixes */
+@media (max-width: 480px) {
+  :root {
+    --header-height: 52px;
+    /* Calculate dynamic height to avoid Android keyboard overlap issues */
+    --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+    font-size: 14px; 
+  }
+
+  /* Force Full Width for Android Screens */
+  body {
+    width: 100vw !important;
+    height: 100vh !important;
+    height: -webkit-fill-available;
+    overflow-x: hidden !important;
+    position: fixed; /* Prevent scroll bounce */
+  body > * {
+    max-width: 100% !important;
+  }
+
+  /* Optimization for the Center Panel & Chat Box */
+  .BaseChat {
+    padding: 10px !important;
+    padding-bottom: calc(12px + var(--safe-area-inset-bottom)) !important;
+  }
+
+  .ChatBox {
+    width: 96% !important;
+    margin: 0 auto !important;
+    border-radius: 16px !important;
+    padding: 8px !important;
+    background: rgba(18, 18, 20, 0.95) !important;
+    backdrop-filter: blur(10px);
+  }
+
+  textarea {
+    font-size: 15px !important; /* Larger for better Android typing */
+    padding: 12px !important;
+    max-height: 120px !important;
+  }
+
+  /* Shrink Icons and Controls for Elite look */
+  .IconButton, button {
+    min-height: 42px !important; /* Android Touch Target Standard */
+    min-width: 42px !important;
+    padding: 6px !important;
+  }
+
+  svg, [class^="i-"] {
+    transform: scale(0.85); /* Visual shrink but keep hit area large */
+  }
+
+  /* Hide distracting elements in mobile view */
+  .hide-on-android {
+    display: none !important;
+  }
+  
+  /* Force Modern Scrollbar for Android Chrome */
+  ::-webkit-scrollbar {
+    width: 3px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--elite-accent);
+  }
+}
+
+/* Production Elite Theme Override */
+[data-theme='dark'] {
+  --bolt-elements-bg-depth-1: var(--bg-black) !important;
+  --bolt-elements-bg-depth-2: #121214 !important;
+  --bolt-elements-borderColor: rgba(255, 255, 255, 0.08) !important;
+}
