@@ -60,154 +60,131 @@ export default function SettingsTab() {
   }, [settings]);
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3 sm:space-y-4 max-w-full overflow-x-hidden">
       {/* Language & Notifications */}
       <motion.div
-        className="bg-white dark:bg-[#0A0A0A] rounded-lg shadow-sm dark:shadow-none p-4 space-y-4"
-        initial={{ opacity: 0, y: 20 }}
+        className="bg-bolt-elements-bg-depth-2 rounded-xl border border-bolt-elements-borderColor p-3 sm:p-4 space-y-3 sm:space-y-4"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+      >
+        <div className="flex items-center gap-2 mb-2 sm:mb-4">
+          <div className="i-ph:palette-fill w-4 h-4 text-elite-accent" />
+          <span className="text-xs sm:text-sm font-bold tracking-tight text-bolt-elements-textPrimary uppercase">Elite Preferences</span>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+          <div>
+            <div className="flex items-center gap-2 mb-1.5 sm:mb-2">
+              <div className="i-ph:translate-fill w-3.5 h-3.5 text-bolt-elements-textSecondary" />
+              <label className="block text-xs sm:text-sm font-medium text-bolt-elements-textSecondary">System Language</label>
+            </div>
+            <select
+              value={settings.language}
+              onChange={(e) => setSettings((prev) => ({ ...prev, language: e.target.value }))}
+              className={classNames(
+                'w-full px-3 py-2 rounded-lg text-xs sm:text-sm',
+                'bg-bolt-elements-bg-depth-3',
+                'border border-bolt-elements-borderColor',
+                'text-bolt-elements-textPrimary',
+                'focus:outline-none focus:ring-1 focus:ring-elite-accent/50',
+                'transition-all duration-200',
+              )}
+            >
+              <option value="en">English (US)</option>
+              <option value="es">Español</option>
+              <option value="fr">Français</option>
+              <option value="ar">العربية</option>
+              <option value="zh">中文</option>
+            </select>
+          </div>
+
+          <div className="flex flex-col justify-end pb-1">
+            <div className="flex items-center justify-between p-2 rounded-lg bg-bolt-elements-bg-depth-3 border border-bolt-elements-borderColor">
+              <div className="flex items-center gap-2">
+                <div className="i-ph:bell-fill w-3.5 h-3.5 text-bolt-elements-textSecondary" />
+                <span className="text-xs sm:text-sm text-bolt-elements-textPrimary font-medium">Real-time Alerts</span>
+              </div>
+              <Switch
+                checked={settings.notifications}
+                onCheckedChange={(checked) => {
+                  setSettings((prev) => ({ ...prev, notifications: checked }));
+                  toast.success(`Elite Alerts ${checked ? 'Active' : 'Muted'}`, { theme: 'dark' });
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Timezone & Core Config */}
+      <motion.div
+        className="bg-bolt-elements-bg-depth-2 rounded-xl border border-bolt-elements-borderColor p-3 sm:p-4"
+        initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
       >
-        <div className="flex items-center gap-2 mb-4">
-          <div className="i-ph:palette-fill w-4 h-4 text-purple-500" />
-          <span className="text-sm font-medium text-bolt-elements-textPrimary">Preferences</span>
+        <div className="flex items-center gap-2 mb-2 sm:mb-4">
+          <div className="i-ph:clock-fill w-4 h-4 text-elite-accent" />
+          <span className="text-xs sm:text-sm font-bold tracking-tight text-bolt-elements-textPrimary uppercase">Context Settings</span>
         </div>
 
         <div>
-          <div className="flex items-center gap-2 mb-2">
-            <div className="i-ph:translate-fill w-4 h-4 text-bolt-elements-textSecondary" />
-            <label className="block text-sm text-bolt-elements-textSecondary">Language</label>
+          <div className="flex items-center gap-2 mb-1.5 sm:mb-2">
+            <div className="i-ph:globe-fill w-3.5 h-3.5 text-bolt-elements-textSecondary" />
+            <label className="block text-xs sm:text-sm font-medium text-bolt-elements-textSecondary">Execution Timezone</label>
           </div>
-          <select
-            value={settings.language}
-            onChange={(e) => setSettings((prev) => ({ ...prev, language: e.target.value }))}
-            className={classNames(
-              'w-full px-3 py-2 rounded-lg text-sm',
-              'bg-[#FAFAFA] dark:bg-[#0A0A0A]',
-              'border border-[#E5E5E5] dark:border-[#1A1A1A]',
-              'text-bolt-elements-textPrimary',
-              'focus:outline-none focus:ring-2 focus:ring-purple-500/30',
-              'transition-all duration-200',
-            )}
-          >
-            <option value="en">English</option>
-            <option value="es">Español</option>
-            <option value="fr">Français</option>
-            <option value="de">Deutsch</option>
-            <option value="it">Italiano</option>
-            <option value="pt">Português</option>
-            <option value="ru">Русский</option>
-            <option value="zh">中文</option>
-            <option value="ja">日本語</option>
-            <option value="ko">한국어</option>
-          </select>
-        </div>
-
-        <div>
-          <div className="flex items-center gap-2 mb-2">
-            <div className="i-ph:bell-fill w-4 h-4 text-bolt-elements-textSecondary" />
-            <label className="block text-sm text-bolt-elements-textSecondary">Notifications</label>
-          </div>
-          <div className="flex items-center justify-between">
-            <span className="text-sm text-bolt-elements-textSecondary">
-              {settings.notifications ? 'Notifications are enabled' : 'Notifications are disabled'}
-            </span>
-            <Switch
-              checked={settings.notifications}
-              onCheckedChange={(checked) => {
-                // Update local state
-                setSettings((prev) => ({ ...prev, notifications: checked }));
-
-                // Update localStorage immediately
-                const existingProfile = JSON.parse(localStorage.getItem('bolt_user_profile') || '{}');
-                const updatedProfile = {
-                  ...existingProfile,
-                  notifications: checked,
-                };
-                localStorage.setItem('bolt_user_profile', JSON.stringify(updatedProfile));
-
-                // Dispatch storage event for other components
-                window.dispatchEvent(
-                  new StorageEvent('storage', {
-                    key: 'bolt_user_profile',
-                    newValue: JSON.stringify(updatedProfile),
-                  }),
-                );
-
-                toast.success(`Notifications ${checked ? 'enabled' : 'disabled'}`);
-              }}
-            />
+          <div className="relative group">
+            <select
+              value={settings.timezone}
+              onChange={(e) => setSettings((prev) => ({ ...prev, timezone: e.target.value }))}
+              className={classNames(
+                'w-full px-3 py-2 rounded-lg text-xs sm:text-sm appearance-none',
+                'bg-bolt-elements-bg-depth-3',
+                'border border-bolt-elements-borderColor',
+                'text-bolt-elements-textPrimary',
+                'group-hover:border-elite-accent/30 transition-colors',
+              )}
+            >
+              <option value={currentTimezone}>{currentTimezone}</option>
+            </select>
+            <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-bolt-elements-textSecondary">
+              <div className="i-ph:caret-down w-3 h-3" />
+            </div>
           </div>
         </div>
       </motion.div>
 
-      {/* Timezone */}
+      {/* Pro Keyboard Shortcuts */}
       <motion.div
-        className="bg-white dark:bg-[#0A0A0A] rounded-lg shadow-sm dark:shadow-none p-4"
-        initial={{ opacity: 0, y: 20 }}
+        className="bg-bolt-elements-bg-depth-2 rounded-xl border border-bolt-elements-borderColor p-3 sm:p-4"
+        initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
       >
-        <div className="flex items-center gap-2 mb-4">
-          <div className="i-ph:clock-fill w-4 h-4 text-purple-500" />
-          <span className="text-sm font-medium text-bolt-elements-textPrimary">Time Settings</span>
+        <div className="flex items-center gap-2 mb-2 sm:mb-4">
+          <div className="i-ph:keyboard-fill w-4 h-4 text-elite-accent" />
+          <span className="text-xs sm:text-sm font-bold tracking-tight text-bolt-elements-textPrimary uppercase">Elite Orchestration</span>
         </div>
 
-        <div>
-          <div className="flex items-center gap-2 mb-2">
-            <div className="i-ph:globe-fill w-4 h-4 text-bolt-elements-textSecondary" />
-            <label className="block text-sm text-bolt-elements-textSecondary">Timezone</label>
-          </div>
-          <select
-            value={settings.timezone}
-            onChange={(e) => setSettings((prev) => ({ ...prev, timezone: e.target.value }))}
-            className={classNames(
-              'w-full px-3 py-2 rounded-lg text-sm',
-              'bg-[#FAFAFA] dark:bg-[#0A0A0A]',
-              'border border-[#E5E5E5] dark:border-[#1A1A1A]',
-              'text-bolt-elements-textPrimary',
-              'focus:outline-none focus:ring-2 focus:ring-purple-500/30',
-              'transition-all duration-200',
-            )}
-          >
-            <option value={currentTimezone}>{currentTimezone}</option>
-          </select>
-        </div>
-      </motion.div>
-
-      {/* Simplified Keyboard Shortcuts */}
-      <motion.div
-        className="bg-white dark:bg-[#0A0A0A] rounded-lg shadow-sm dark:shadow-none p-4"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
-      >
-        <div className="flex items-center gap-2 mb-4">
-          <div className="i-ph:keyboard-fill w-4 h-4 text-purple-500" />
-          <span className="text-sm font-medium text-bolt-elements-textPrimary">Keyboard Shortcuts</span>
-        </div>
-
-        <div className="space-y-2">
-          <div className="flex items-center justify-between p-2 rounded-lg bg-[#FAFAFA] dark:bg-[#1A1A1A]">
-            <div className="flex flex-col">
-              <span className="text-sm text-bolt-elements-textPrimary">Toggle Theme</span>
-              <span className="text-xs text-bolt-elements-textSecondary">Switch between light and dark mode</span>
+        <div className="grid grid-cols-1 gap-2">
+          {[
+            { label: 'Toggle Master Theme', desc: 'Switch Dark/Light', keys: ['meta', 'alt', 'shift', 'D'] },
+            { label: 'Quick Deploy', desc: 'Execute build cycle', keys: ['meta', 'K'] },
+          ].map((shortcut, i) => (
+            <div key={i} className="flex items-center justify-between p-2 rounded-lg bg-bolt-elements-bg-depth-3/50 hover:bg-bolt-elements-bg-depth-3 transition-colors">
+              <div className="flex flex-col">
+                <span className="text-xs sm:text-sm font-medium text-bolt-elements-textPrimary">{shortcut.label}</span>
+                <span className="text-[10px] sm:text-xs text-bolt-elements-textSecondary">{shortcut.desc}</span>
+              </div>
+              <div className="flex items-center gap-1">
+                {shortcut.keys.map((k) => (
+                  <kbd key={k} className="px-1.5 py-0.5 text-[10px] font-bold text-elite-accent bg-bolt-elements-bg-depth-1 border border-bolt-elements-borderColor rounded shadow-sm">
+                    {getModifierSymbol(k).toUpperCase()}
+                  </kbd>
+                ))}
+              </div>
             </div>
-            <div className="flex items-center gap-1">
-              <kbd className="px-2 py-1 text-xs font-semibold text-bolt-elements-textSecondary bg-white dark:bg-[#0A0A0A] border border-[#E5E5E5] dark:border-[#1A1A1A] rounded shadow-sm">
-                {getModifierSymbol('meta')}
-              </kbd>
-              <kbd className="px-2 py-1 text-xs font-semibold text-bolt-elements-textSecondary bg-white dark:bg-[#0A0A0A] border border-[#E5E5E5] dark:border-[#1A1A1A] rounded shadow-sm">
-                {getModifierSymbol('alt')}
-              </kbd>
-              <kbd className="px-2 py-1 text-xs font-semibold text-bolt-elements-textSecondary bg-white dark:bg-[#0A0A0A] border border-[#E5E5E5] dark:border-[#1A1A1A] rounded shadow-sm">
-                {getModifierSymbol('shift')}
-              </kbd>
-              <kbd className="px-2 py-1 text-xs font-semibold text-bolt-elements-textSecondary bg-white dark:bg-[#0A0A0A] border border-[#E5E5E5] dark:border-[#1A1A1A] rounded shadow-sm">
-                D
-              </kbd>
-            </div>
-          </div>
+          ))}
         </div>
       </motion.div>
     </div>

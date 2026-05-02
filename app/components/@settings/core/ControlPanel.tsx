@@ -235,85 +235,82 @@ export const ControlPanel = ({ open, onClose }: ControlPanelProps) => {
           >
             <div
               className={classNames(
-                'w-[1200px] h-[90vh]',
-                'bg-bolt-elements-background-depth-1',
-                'rounded-2xl shadow-2xl',
-                'border border-bolt-elements-borderColor',
+                'w-[1200px] h-[90vh] max-w-full max-h-full', // Scale to screen
+                'bg-bolt-elements-bg-depth-1',
+                'sm:rounded-2xl shadow-2xl',
+                'border-t sm:border border-bolt-elements-borderColor',
                 'flex flex-col overflow-hidden',
                 'relative',
                 'transform transition-all duration-200 ease-out',
                 open ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 translate-y-4',
               )}
             >
-              <div className="absolute inset-0 overflow-hidden rounded-2xl">
+              <div className="absolute inset-0 overflow-hidden sm:rounded-2xl pointer-events-none">
                 <BackgroundRays />
               </div>
-              <div className="relative z-10 flex flex-col h-full">
+              <div className="relative z-10 flex flex-col h-full bg-bolt-elements-bg-depth-1/80 backdrop-blur-md">
                 {/* Header */}
-                <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-gray-700">
-                  <div className="flex items-center space-x-4">
+                <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 border-b border-bolt-elements-borderColor">
+                  <div className="flex items-center space-x-3 sm:space-x-4">
                     {(activeTab || showTabManagement) && (
                       <button
                         onClick={handleBack}
-                        className="flex items-center justify-center w-8 h-8 rounded-full bg-transparent hover:bg-purple-500/10 dark:hover:bg-purple-500/20 group transition-colors duration-150"
+                        className="flex items-center justify-center w-8 h-8 rounded-full bg-bolt-elements-bg-depth-3 hover:bg-elite-accent/10 group transition-all"
                       >
-                        <div className="i-ph:arrow-left w-4 h-4 text-gray-500 dark:text-gray-400 group-hover:text-purple-500 transition-colors" />
+                        <div className="i-ph:arrow-left w-4 h-4 text-bolt-elements-textSecondary group-hover:text-elite-accent" />
                       </button>
                     )}
-                    <DialogTitle className="text-xl font-semibold text-gray-900 dark:text-white">
-                      {showTabManagement ? 'Tab Management' : activeTab ? TAB_LABELS[activeTab] : 'Control Panel'}
+                    <DialogTitle className="text-lg sm:text-xl font-bold tracking-tight text-bolt-elements-textPrimary">
+                      {showTabManagement ? 'Tab Management' : activeTab ? TAB_LABELS[activeTab] : 'Elite Settings'}
                     </DialogTitle>
                   </div>
 
-                  <div className="flex items-center gap-6">
-                    {/* Avatar and Dropdown */}
-                    <div className="pl-6">
+                  <div className="flex items-center gap-2 sm:gap-6">
+                    {/* Avatar and Dropdown - Hidden on small mobile to save space */}
+                    <div className="hidden sm:block">
                       <AvatarDropdown onSelectTab={handleTabClick} />
                     </div>
 
                     {/* Close Button */}
                     <button
                       onClick={handleClose}
-                      className="flex items-center justify-center w-8 h-8 rounded-full bg-transparent hover:bg-purple-500/10 dark:hover:bg-purple-500/20 group transition-all duration-200"
+                      className="flex items-center justify-center w-8 h-8 rounded-full bg-bolt-elements-bg-depth-3 hover:bg-elite-accent/10 group transition-all"
                     >
-                      <div className="i-ph:x w-4 h-4 text-gray-500 dark:text-gray-400 group-hover:text-purple-500 transition-colors" />
+                      <div className="i-ph:x w-4 h-4 text-bolt-elements-textSecondary group-hover:text-elite-accent" />
                     </button>
                   </div>
                 </div>
 
-                {/* Content */}
+                {/* Content Area with Mobile Grid Optimization */}
                 <div
                   className={classNames(
                     'flex-1',
                     'overflow-y-auto',
-                    'hover:overflow-y-auto',
-                    'scrollbar scrollbar-w-2',
-                    'scrollbar-track-transparent',
-                    'scrollbar-thumb-[#E5E5E5] hover:scrollbar-thumb-[#CCCCCC]',
-                    'dark:scrollbar-thumb-[#333333] dark:hover:scrollbar-thumb-[#444444]',
-                    'will-change-scroll',
+                    'modern-scrollbar',
                     'touch-auto',
                   )}
                 >
                   <div
                     className={classNames(
-                      'p-6 transition-opacity duration-150',
+                      'p-4 sm:p-6 transition-opacity duration-150',
                       activeTab || showTabManagement ? 'opacity-100' : 'opacity-100',
                     )}
                   >
                     {activeTab ? (
-                      getTabComponent(activeTab)
+                      <div className="max-w-3xl mx-auto">
+                        {getTabComponent(activeTab)}
+                      </div>
                     ) : (
-                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 relative">
+                      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 relative">
                         {visibleTabs.map((tab, index) => (
                           <div
                             key={tab.id}
                             className={classNames(
-                              'aspect-[1.5/1] transition-transform duration-100 ease-out',
-                              'hover:scale-[1.01]',
+                              'aspect-square sm:aspect-[1.5/1] transition-transform duration-100 ease-out',
+                              'hover:scale-[1.02] active:scale-[0.98]',
                             )}
                             style={{
-                              animationDelay: `${index * 30}ms`,
+                              animationDelay: `${index * 20}ms`,
                               animation: open ? 'fadeInUp 200ms ease-out forwards' : 'none',
                             }}
                           >

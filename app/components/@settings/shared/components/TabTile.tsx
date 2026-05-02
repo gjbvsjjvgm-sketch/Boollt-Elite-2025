@@ -31,43 +31,29 @@ export const TabTile: React.FC<TabTileProps> = ({
     <Tooltip.Provider delayDuration={0}>
       <Tooltip.Root>
         <Tooltip.Trigger asChild>
-          <div className={classNames('min-h-[160px] list-none', className || '')}>
-            <div className="relative h-full rounded-xl border border-[#E5E5E5] dark:border-[#333333] p-0.5">
-              <GlowingEffect
-                blur={0}
-                borderWidth={1}
-                spread={20}
-                glow={true}
-                disabled={false}
-                proximity={40}
-                inactiveZone={0.3}
-                movementDuration={0.4}
-              />
+          <div className={classNames('min-h-[120px] sm:min-h-[160px] list-none', className || '')}>
+            <div className="relative h-full rounded-xl border border-bolt-elements-borderColor p-0.5 overflow-hidden group">
               <div
                 onClick={onClick}
                 className={classNames(
-                  'relative flex flex-col items-center justify-center h-full p-4 rounded-lg',
-                  'bg-white dark:bg-[#141414]',
+                  'relative flex flex-col items-center justify-center h-full p-3 sm:p-4 rounded-lg',
+                  'bg-bolt-elements-bg-depth-2/40 backdrop-blur-sm',
                   'group cursor-pointer',
-                  'hover:bg-purple-50 dark:hover:bg-[#1a1a1a]',
-                  'transition-colors duration-100 ease-out',
-                  isActive ? 'bg-purple-500/5 dark:bg-purple-500/10' : '',
+                  'hover:bg-elite-accent/5 transition-all duration-200',
+                  isActive ? 'bg-elite-accent/10 border-elite-accent/20' : '',
                   isLoading ? 'cursor-wait opacity-70 pointer-events-none' : '',
                 )}
               >
-                {/* Icon */}
+                {/* Icon - Scaled for Mobile */}
                 <div
                   className={classNames(
                     'relative',
-                    'w-14 h-14',
+                    'w-10 h-10 sm:w-14 h-14',
                     'flex items-center justify-center',
-                    'rounded-xl',
-                    'bg-gray-100 dark:bg-gray-800',
-                    'ring-1 ring-gray-200 dark:ring-gray-700',
-                    'group-hover:bg-purple-100 dark:group-hover:bg-gray-700/80',
-                    'group-hover:ring-purple-200 dark:group-hover:ring-purple-800/30',
-                    'transition-all duration-100 ease-out',
-                    isActive ? 'bg-purple-500/10 dark:bg-purple-500/10 ring-purple-500/30 dark:ring-purple-500/20' : '',
+                    'rounded-lg sm:rounded-xl',
+                    'bg-bolt-elements-bg-depth-3 border border-bolt-elements-borderColor',
+                    'group-hover:border-elite-accent/30 transition-all duration-200',
+                    isActive ? 'border-elite-accent ring-1 ring-elite-accent/20' : '',
                   )}
                 >
                   {(() => {
@@ -75,26 +61,23 @@ export const TabTile: React.FC<TabTileProps> = ({
                     return (
                       <IconComponent
                         className={classNames(
-                          'w-8 h-8',
-                          'text-gray-600 dark:text-gray-300',
-                          'group-hover:text-purple-500 dark:group-hover:text-purple-400/80',
-                          'transition-colors duration-100 ease-out',
-                          isActive ? 'text-purple-500 dark:text-purple-400/90' : '',
+                          'w-5 h-5 sm:w-8 h-8',
+                          'text-bolt-elements-textSecondary',
+                          'group-hover:text-elite-accent transition-colors',
+                          isActive ? 'text-elite-accent' : '',
                         )}
                       />
                     );
                   })()}
                 </div>
 
-                {/* Label and Description */}
-                <div className="flex flex-col items-center mt-4 w-full">
+                {/* Label - Compact */}
+                <div className="flex flex-col items-center mt-2 sm:mt-4 w-full">
                   <h3
                     className={classNames(
-                      'text-[15px] font-medium leading-snug mb-2',
-                      'text-gray-700 dark:text-gray-200',
-                      'group-hover:text-purple-600 dark:group-hover:text-purple-300/90',
-                      'transition-colors duration-100 ease-out',
-                      isActive ? 'text-purple-500 dark:text-purple-400/90' : '',
+                      'text-xs sm:text-[15px] font-bold tracking-tight mb-0.5 sm:mb-1',
+                      'text-bolt-elements-textPrimary uppercase',
+                      isActive ? 'text-elite-accent' : '',
                     )}
                   >
                     {TAB_LABELS[tab.id]}
@@ -102,13 +85,9 @@ export const TabTile: React.FC<TabTileProps> = ({
                   {description && (
                     <p
                       className={classNames(
-                        'text-[13px] leading-relaxed',
-                        'text-gray-500 dark:text-gray-400',
-                        'max-w-[85%]',
-                        'text-center',
-                        'group-hover:text-purple-500 dark:group-hover:text-purple-400/70',
-                        'transition-colors duration-100 ease-out',
-                        isActive ? 'text-purple-400 dark:text-purple-400/80' : '',
+                        'hidden sm:block text-[11px] leading-relaxed',
+                        'text-bolt-elements-textSecondary',
+                        'max-w-[90%] text-center',
                       )}
                     >
                       {description}
